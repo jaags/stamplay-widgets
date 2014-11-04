@@ -28,10 +28,11 @@ app.directive('stamplay', ['userService', 'cookieService',
 					}
 
 				}
-				scope.listenOnUser = function(childScope){
-					childScope.$on('user:updated', function(event,data) {
-    		 		childScope.user = data;
-   				});
+				/* This function put the widget listening on user:updated */
+				scope.listenOnUser = function (childScope) {
+					childScope.$on('user:updated', function (event, data) {
+						childScope.user = data;
+					});
 				}
 
 			},

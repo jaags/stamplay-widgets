@@ -8,13 +8,18 @@ app.directive('photoSlideshow', ['userService', 'photoService',
 		return {
 			require: 'stamplay',
 			scope: {},
-			templateUrl: templateUrl,
+
+			templateUrl: function (elem, attrs) {
+				var _url = _ASSETS_URL + '/assets/';
+				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'photo-slideshow.html';
+			},
+
 			link: function (scope, element, attrs, sc) {
 				scope.user = userService.getUser();
 				scope.$parent.listenOnUser(scope);
-				scope.albumName = attrs.albumName || 'default';
+				scope.albumId = attrs.albumId || 'default';
 
-				photoService.getPhotos(1, '-dt_create', 1, 10, scope.albumName).success(function(response) {
+				photoService.getPhotos(1, '-dt_create', 1, 10, scope.albumId).success(function (response) {
 					scope.photos = response.data;
 				})
 			}

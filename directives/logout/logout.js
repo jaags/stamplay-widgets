@@ -6,11 +6,11 @@ app.directive('logout', ['userService', 'cookieService',
 		return {
 			require: 'stamplay',
 			scope: {},
-			template: [
-	     '<a ng-click="logout()" href="#" class="btn btn-primary" ng-show="user.dt_create" >',
-	       'Logout',
-	     '</a>'
-			].join(''),
+
+			templateUrl: function (elem, attrs) {
+				var _url = _ASSETS_URL + '/assets/';
+				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'logout.html';
+			},
 
 			link: function (scope, element, attrs, sc) {
 				scope.user = userService.getUser();

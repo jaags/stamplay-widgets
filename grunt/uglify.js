@@ -3,7 +3,16 @@ module.exports = {
     preserveComments: false
   },
 
-  'output': {
+  'build': {
+    options: {
+      sourceMap: false
+    },
+    files: {
+      './dist/stamplay-ng.min.js': ['./dist/stamplay-ng.js']
+    }
+  },
+
+  'build-with-map': {
     options: {
       sourceMap: true
     },
@@ -11,5 +20,6 @@ module.exports = {
       './dist/stamplay-ng.min.js': ['./dist/stamplay-ng.js']
     }
   }
+
 
 };

@@ -6,11 +6,10 @@ app.directive('loginFacebook', ['userService',
 		return {
 			require: 'stamplay',
 			scope: {},
-			template: [
-			       '<a href="/auth/v0/facebook/connect" class="btn btn-primary" ng-hide="user.dt_create">',
-			         'Login with FB',
-			       '</a>'
-		].join(''),
+			templateUrl: function (elem, attrs) {
+				var _url = _ASSETS_URL + '/assets/';
+				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'login-facebook.html';
+			},
 			link: function (scope, element, attrs, sc) {
 				scope.user = userService.getUser();
 				scope.$parent.listenOnUser(scope);

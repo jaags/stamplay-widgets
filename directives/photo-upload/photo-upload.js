@@ -7,11 +7,15 @@ app.directive('photoUpload', ['userService', '$upload',
 		return {
 			require: 'stamplay',
 			scope: {},
-			templateUrl: templateUrl,
+			templateUrl: function (elem, attrs) {
+				var _url = _ASSETS_URL + '/assets/';
+				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'photo-upload.html';
+			},
+
 			link: function (scope, element, attrs, sc) {
 				scope.user = userService.getUser();
 				scope.$parent.listenOnUser(scope);
-				scope.albumName = attrs.albumName || 'default';
+				scope.albumId = attrs.albumId || 'default';
 				scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
 				scope.dataUrls = [];
 				scope.selectedFiles = [];
@@ -57,7 +61,7 @@ app.directive('photoUpload', ['userService', '$upload',
 
 							data: {
 								files: file,
-								albumName: $scope.albumName
+								albumName: $scope.albumId
 							},
 							//file: file, // or list of files ($files) for html5 only
 							//fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
