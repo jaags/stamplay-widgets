@@ -34,7 +34,7 @@
 							id="{{field.id}}" 
 							type="{{field.type}}" 
 							ng-name="{{field.id}}" 
-							ng-model="abc[field.id]"
+							ng-model="formmodel[field.id]"
 							ng-required="{{field.required}}"
 							/>
 					</div>
@@ -47,7 +47,7 @@
 							class="form-control" 
 							ng-name="{{field.id}}" 
 							type="{{field.type}}" 
-							ng-model="abc[field.id]"
+							ng-model="formmodel[field.id]"
 							ng-required="{{field.required}}"
 							>
 						</textarea>
@@ -59,7 +59,7 @@
 							id="{{field.id}}"
 							ng-name="{{field.id}}"
 							type="{{field.type}}"
-							ng-model="abc[field.id]"
+							ng-model="formmodel[field.id]"
 							ng-required="{{field.required}}"
 						>
 								<option value=""> </option>
@@ -77,7 +77,7 @@
 								<input
 									id="{{field.id}}"
 									ng-required="{{field.required}}"
-									ng-model="abc[field.id]"
+									ng-model="formmodel[field.id]"
 								  ng-name="{{field.id}}"
 									type="radio" value="{{option}}">{{option}}
 						</label>
@@ -88,7 +88,7 @@
 						<label ng-repeat="option in field.options" for="{{field.id}}" class="radio-inline" >
 						    <!-- NEED TO DIG DEEPER  for checkbox validation -->
 								<input
-									ng-model="abc[field.id][option]"
+									ng-model="formmodel[field.id][option]"
 									ng-true-value="{{option}}"
 									ng-false-value="false"
 								 	ng-name="{{field.id}}"

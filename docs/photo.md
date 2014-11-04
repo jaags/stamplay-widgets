@@ -10,13 +10,13 @@ A set of widgets related to the photo component. Available angular directives ar
 ## Photo gallery
 #### Configuration
 This widget need the following data attributes:
+* album-id : the album id of the gallery (default: default)
 * photo-single-url : this have to be a valid url and it should point to a page where is present the photo-single widget.   
 * per-page : a pagination parameter that represents how many photos should be displayed for every page  
-* album-name : the album id of the gallery 
 
 You can insert it in the page by adding this code snippet in the page:  
 
-	<stamplay photo-gallery data-photo-single-url="YOUR-URL" data-per-page="YOUR-NUMBER-PER-PAGE" ></stamplay>
+	<stamplay photo-gallery data-album-id="YOUR-ALBUM-ID" data-photo-single-url="YOUR-URL" data-per-page="YOUR-NUMBER-PER-PAGE" ></stamplay>
 
 
 #### What you'll get
@@ -39,18 +39,27 @@ You can insert it in the page by adding this code snippet in the page:
 
 #### What you'll get
 This widget will display the photo with the _id read in the url and will allow users to comment, rate and vote the resource. 
+
 ## Photo slideshow
 #### Configuration
 This widget need the following data attributes:
-* album-name : the album id of the gallery 
+* album-id : the album id of the gallery 
+
+You can insert it in the page by adding this code snippet in the page:  
+
+	<stamplay photo-slideshow data-album-id="YOUR-ALBUM-ID"></stamplay>
 
 #### What you'll get
-This widget will display with a slideshow effect the lastest 10 photo of the specified album-name.
+This widget will display with a slideshow effect the lastest 10 photo of the specified album-id.
 
 ## Photo upload
 #### Configuration
 This widget need the following data attributes:
-* album-name : the album id of the gallery (default: default) 
+* album-id : the album id of the gallery (default: default) 
+
+You can insert it in the page by adding this code snippet in the page:  
+
+	<stamplay photo-slideshow data-album-id="YOUR-ALBUM-ID"></stamplay>
 
 #### What you'll get
 * If the user isn't logged you'll see nothing.

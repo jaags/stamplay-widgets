@@ -1,11 +1,17 @@
 module.exports = function (grunt) {
-	/**
-	 * Assets creation and minifization
-	 */
-	//Build External UI Library minified js (METRONIC dependancies)
+
 	grunt.registerTask('build', 'Create stamplay-ng.min.js', [
+		'clean:remove-dist',
 		'ngAnnotate:js',
-		'uglify:output',
-		'copy:templates'
+		'uglify:build',
+		'copy:templates',
+		'clean:dist'
+	]);
+
+	grunt.registerTask('build-with-map', 'Create stamplay-ng.min.js and min.map', [
+		'clean:remove-dist',
+		'ngAnnotate:js',
+		'uglify:build-with-map',
+		'copy:templates',
 	]);
 }

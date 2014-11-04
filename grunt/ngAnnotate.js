@@ -28,18 +28,18 @@ module.exports = {
 
 		files: {
 			'./dist/stamplay-ng.js': [
-// LIBS
+ // LIBS
 
-				'./lib/angular-1.2.26.js',
-				'./lib/angular-file-upload.js',
-				'./lib/ui-bootstrap-tpls.js',
-				'./lib/angular-file-upload-shim.js',
+				'./bower_components/angular/angular.js',
+				'./bower_components/ng-file-upload/angular-file-upload.js',
+				'./bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+				'./bower_components/ng-file-upload/angular-file-upload-shim.js',
 
 				'./module.js',
 
 				'./directives/utils/ngName.js',
 
-// SERVICES
+ // SERVICES
 
 				'./services/userService.js',
 				'./services/photoService.js',
@@ -48,11 +48,11 @@ module.exports = {
 				'./services/loginService.js',
 				'./services/requestParserService.js',
 
-// DIRECTIVES
+ // DIRECTIVES
 
 				'./directives/stamplay.js',
 
-// LOGIN DIRECTIVES
+ // LOGIN DIRECTIVES
 
 				'./directives/login-facebook/login-facebook.js',
 
@@ -72,15 +72,15 @@ module.exports = {
 
         './directives/login-local/login-local.js',
 
-// LOGOUT DIRECTIVES
+ // LOGOUT DIRECTIVES
 
         './directives/logout/logout.js',
 
-// FORM DIRECTIVES
+ // FORM DIRECTIVES
 
         './directives/form-submit/form-submit.js',
 
-// PHOTO DIRECTIVES
+ // PHOTO DIRECTIVES
 
         './directives/photo-upload/photo-upload.js',
 
@@ -90,7 +90,7 @@ module.exports = {
 
         './directives/photo-gallery/photo-gallery.js',
 
-// USER DIRECTIVES
+ // USER DIRECTIVES
 
         './directives/user-signup/user-signup.js',
 

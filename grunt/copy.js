@@ -3,12 +3,12 @@ module.exports = {
 		expand: true,
 		flatten: true,
 		src: [
-			'./directives/*/*',
-			'./directives/stamplay.js',
-			'./services/*',
-			'./libs/*',
-			'./module.js'
-			
+			'./directives/*/*.html',
+			//'./directives/stamplay.js',
+			//'./services/*',
+			//'./libs/*',
+			//'./module.js'
+
 		],
 		dest: 'dist/',
 		filter: 'isFile'
