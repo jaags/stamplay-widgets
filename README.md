@@ -22,7 +22,7 @@ For using the widgets in your Stamplay application you need to follow this steps
 ### Building all widgets 
 In the root repository folder launch from the terminal:
  
-	bower install && npm install && grunt build
+	bower install && sudo npm install && grunt build
 
 It will minify the javascript and will copy the widget template in the dist folder. 
 ### Upload in the assets folder
