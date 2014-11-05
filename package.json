@@ -1,0 +1,21 @@
+{
+  "name": "Stamplaywidgets",
+  "version": "0.0.0",
+  "description": "",
+  "main": "module.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:stamplay/angular-widgets.git"
+  },
+  "author": "Stamplay",
+  "license": "GNU",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-ng-annotate": "^0.4.0",
+    "grunt-contrib-uglify": "0.6.0",
+    "load-grunt-config": "^0.16.0",
+    "grunt-contrib-copy": "0.7.0",
+    "grunt-contrib-clean": "~0.5.0"
+  }
+}
