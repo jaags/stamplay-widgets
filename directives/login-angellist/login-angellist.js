@@ -3,17 +3,17 @@
 app.directive('loginAngellist', ['userService',
 
 	function (userService) {
-		
+
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
-			templateUrl: function(elem,attrs) {
-				var _url = _ASSETS_URL + '/assets/'; 
+			templateUrl: function (elem, attrs) {
+				var _url = _ASSETS_URL + '/assets/';
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'login-angellist.html';
-      },
-			link: function (scope, element, attrs, sc) {
+			},
+			link: function (scope, element, attrs, parentController) {
 				scope.user = userService.getUser();
-				scope.$parent.listenOnUser(scope);
+				parentController.listenOnUser(scope);
 			}
 		};
 }]);

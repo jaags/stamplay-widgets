@@ -5,16 +5,16 @@ app.directive('photoUpload', ['userService', '$upload',
 		var templateUrl = _ASSETS_URL + '/assets/photo-upload.html';
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
 			templateUrl: function (elem, attrs) {
 				var _url = _ASSETS_URL + '/assets/';
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'photo-upload.html';
 			},
 
-			link: function (scope, element, attrs, sc) {
+			link: function (scope, element, attrs, parentController) {
 				scope.user = userService.getUser();
-				scope.$parent.listenOnUser(scope);
+				parentController.listenOnUser(scope);
 				scope.albumId = attrs.albumId || 'default';
 				scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
 				scope.dataUrls = [];

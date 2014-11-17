@@ -5,7 +5,7 @@ app.directive('formSubmit', ['userService', 'formService',
 	function (userService, formService) {
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
 
 			templateUrl: function (elem, attrs) {
@@ -13,12 +13,28 @@ app.directive('formSubmit', ['userService', 'formService',
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'form-submit.html';
 			},
 
-			link: function (scope, element, attrs, sc) {
+			link: function (scope, element, attrs, parentController) {
+				parentController.listenOnUser(scope);
 				scope.user = userService.getUser();
 				scope.formId = attrs.formId || null;
 				scope.formmodel = {};
+
 				formService.getSchema(scope.formId).success(function (response) {
 					scope.form = response.data[0] || {};
+
+					/* Order fields based on position attribute */
+					var orderedFields = scope.form.fields.sort(function (field1, field2) {
+						return field1.position - field2.position
+					});
+					scope.form.fields = orderedFields;
+
+					/* If there is one or more checkbox we need to create a nested model in order to allow Angular to bind to the model  */
+					scope.form.fields.forEach(function (field) {
+						if (field.type === 'checkbox') {
+							scope.formmodel[field.id] = {};
+						}
+					}, this);
+
 				});
 			},
 
