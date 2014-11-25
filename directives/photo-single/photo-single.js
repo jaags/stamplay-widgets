@@ -4,7 +4,7 @@ app.directive('photoSingle', ['userService', 'photoService', 'requestParserServi
 		var templateUrl = _ASSETS_URL + '/assets/photo-single.html';
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
 
 			templateUrl: function (elem, attrs) {
@@ -12,7 +12,7 @@ app.directive('photoSingle', ['userService', 'photoService', 'requestParserServi
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'photo-single.html';
 			},
 
-			link: function (scope, element, attrs, sc) {
+			link: function (scope, element, attrs, parentController) {
 				scope.user = userService.getUser();
 				scope.photoId = requestParserService.getQueryParameter(document.location.href, 'photo-id')
 				scope.wdgtActions = {}

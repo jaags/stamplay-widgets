@@ -4,7 +4,7 @@ app.directive('loginLocal', ['userService', 'loginService',
 		var templateUrl = _ASSETS_URL + '/assets/login-local.html';
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
 
 			templateUrl: function (elem, attrs) {
@@ -12,9 +12,9 @@ app.directive('loginLocal', ['userService', 'loginService',
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'login-local.html';
 			},
 
-			link: function (scope, element, attrs, sc) {
+			link: function (scope, element, attrs, parentController) {
 				scope.user = userService.getUser();
-				scope.$parent.listenOnUser(scope);
+				parentController.listenOnUser(scope);
 				scope.pattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/
 				if (scope.user._id) {
 					scope.notLogged = false;

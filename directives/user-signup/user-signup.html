@@ -45,7 +45,11 @@
 
       <div class="row">
         <div class="col-md-6">
-          <input type="submit" class="btn btn-success pull-right"  ng-click="signup()" ng-disabled="registerform.$invalid"/>
+          <input 
+            type="submit" 
+            class="btn btn-success pull-right"  
+            ng-click="signup()" 
+            ng-disabled="registerform.$invalid"/>
           <div ng-show="error">{{message}}</div>
         </div>
       </div>

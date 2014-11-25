@@ -4,12 +4,12 @@ app.directive('userBadge', ['userService', 'loginService',
 		var templateUrl = _ASSETS_URL + '/assets/user-badge.html';
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
-			templateUrl:	templateUrl,
-			link: function (scope, element, attrs, sc) {
+			templateUrl: templateUrl,
+			link: function (scope, element, attrs, parentController) {
 				scope.user = userService.getUser();
-				scope.$parent.listenOnUser(scope);
+				parentController.listenOnUser(scope);
 			},
 			controller: function ($scope, $http) {}
 		};

@@ -3,11 +3,12 @@ stamplay-widgets
 
 A set of basic widgets to create web applications using Stamplay APIs
 
-* [User](./docs/user.md)
-* [Login](./docs/login.md) 
-* [Logout](./docs/logout.md)
-* [Form](./docs/form.md) 
-* [Photo](./docs/photo.md)
+* [User](./docs/components/user.md)
+* [Login](./docs/components/login.md) 
+* [Logout](./docs/components/logout.md)
+* [Form](./docs/components/form.md) 
+* [Photo](./docs/components/photo.md)
+* [Stripe](./docs/components/stripe.md)
 
 -----------------------
 

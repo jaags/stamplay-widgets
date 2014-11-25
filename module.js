@@ -1,4 +1,4 @@
-app = angular.module('app', ['angularFileUpload', 'ui.bootstrap']).config(
+app = angular.module('app', ['angularFileUpload', 'ui.bootstrap', 'angularPayments']).config(
 	function ($sceDelegateProvider) {
 		/* Since templates are on AWS S3 we load templates from http whitelisting the assets URL */
 		var isDev = document.location.href.indexOf('stg') != -1;
