@@ -4,6 +4,8 @@
   "dependencies": {
     "angular": "1.2.6",
     "ng-file-upload": "1.6.12",
-    "angular-bootstrap": "0.11.2"
+    "angular-bootstrap": "~0.12.0",
+    "accounting.js": "~0.3.2",
+    "angular-payments": "git://github.com/Stamplay/angular-payments.git"
   }
 }

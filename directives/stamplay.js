@@ -9,7 +9,13 @@ app.directive('stamplay', ['userService', 'cookieService',
 					this.version = 'v0';
 					this.appId = _APP_ID;
 
+					this.listenOnUser = function (childScope) {
+						childScope.$on('user:updated', function (event, data) {
+							childScope.user = data;
+						});
+					}
 				}
+
 			],
 			link: function (scope, element, attrs, sc) {
 				if (attrs.redirect) {
@@ -28,14 +34,7 @@ app.directive('stamplay', ['userService', 'cookieService',
 					}
 
 				}
-				/* This function put the widget listening on user:updated */
-				scope.listenOnUser = function (childScope) {
-					childScope.$on('user:updated', function (event, data) {
-						childScope.user = data;
-					});
-				}
-
-			},
+			}
 
 		}
 }]);

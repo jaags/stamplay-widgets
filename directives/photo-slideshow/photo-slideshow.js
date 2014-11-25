@@ -6,7 +6,7 @@ app.directive('photoSlideshow', ['userService', 'photoService',
 		var templateUrl = _ASSETS_URL + '/assets/photo-slideshow.html';
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
 
 			templateUrl: function (elem, attrs) {
@@ -14,9 +14,9 @@ app.directive('photoSlideshow', ['userService', 'photoService',
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'photo-slideshow.html';
 			},
 
-			link: function (scope, element, attrs, sc) {
+			link: function (scope, element, attrs, parentController) {
 				scope.user = userService.getUser();
-				scope.$parent.listenOnUser(scope);
+				parentController.listenOnUser(scope);
 				scope.albumId = attrs.albumId || 'default';
 
 				photoService.getPhotos(1, '-dt_create', 1, 10, scope.albumId).success(function (response) {

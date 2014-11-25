@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{assetsUrl}}/assets/favicon.png">
+
+    <title>Stamplay | An awesome new app</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{assetsUrl}}/assets/jumbotron-narrow.css" rel="stylesheet">
+
+  </head>
+
+  <body ng-app="app">
+     <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">{{appId}}.stamplay.com</h3>
+      </div>
+    {{{body}}}
+      <div class="footer">
+        <p>&copy; Stamplay <script>document.write(new Date().getFullYear());</script></p>
+      </div>
+
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+      var _APP_ID = "{{appId}}";
+      var _ASSETS_URL = "{{assetsUrl}}";
+    </script>
+
+    <script src="{{assetsUrl}}/assets/angular.js"></script>
+    <script src="{{assetsUrl}}/assets/angular-file-upload.js"></script>
+    <script src="{{assetsUrl}}/assets/ui-bootstrap-tpls.js"></script>
+	  <script src="{{assetsUrl}}/assets/angular-file-upload-shim.js"></script>
+  	<script src="{{assetsUrl}}/assets/angular-payments.js"></script>
+   	<script src="{{assetsUrl}}/assets/accounting.min.js"></script>
+
+    <script src="{{assetsUrl}}/assets/module.js"></script>
+  	
+    <script src="{{assetsUrl}}/assets/ngName.js"></script>
+    <script src="{{assetsUrl}}/assets/userService.js"></script>
+ 
+  	<script src="{{assetsUrl}}/assets/photoService.js"></script>
+		<script src="{{assetsUrl}}/assets/cookieService.js"></script>
+		<script src="{{assetsUrl}}/assets/formService.js"></script>
+		<script src="{{assetsUrl}}/assets/loginService.js"></script>
+		<script src="{{assetsUrl}}/assets/requestParserService.js"></script>
+  	<script src="{{assetsUrl}}/assets/stamplay.js"></script>
+		<script src="{{assetsUrl}}/assets/login-facebook.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-google.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-twitter.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-dropbox.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-linkedin.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-instagram.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-github.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-angellist.js"></script>
+  	<script src="{{assetsUrl}}/assets/login-local.js"></script>
+  	<script src="{{assetsUrl}}/assets/logout.js"></script>
+  	<script src="{{assetsUrl}}/assets/form-submit.js"></script>
+  	<script src="{{assetsUrl}}/assets/photo-upload.js"></script>
+  	<script src="{{assetsUrl}}/assets/photo-slideshow.js"></script>
+  	<script src="{{assetsUrl}}/assets/photo-single.js"></script>
+  	<script src="{{assetsUrl}}/assets/photo-gallery.js"></script>
+  	<script src="{{assetsUrl}}/assets/user-signup.js"></script>
+  	<script src="{{assetsUrl}}/assets/user-badge.js"></script>
+  	<script src="{{assetsUrl}}/assets/user-navbadge.js"></script>
+  	<script src="{{assetsUrl}}/assets/stripe-add-card.js"></script>
+  	<script src="{{assetsUrl}}/assets/stripe-anonymous-payment.js"></script>
+  	<script src="{{assetsUrl}}/assets/stripe-customer-payment.js"></script>
+    
+  </body>
+</html>

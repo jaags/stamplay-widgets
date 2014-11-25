@@ -21,7 +21,7 @@ app.directive('photoGallery', ['userService', 'photoService', 'requestParserServ
 		}
 
 		return {
-			require: 'stamplay',
+			require: '^stamplay',
 			scope: {},
 
 			templateUrl: function (elem, attrs) {
@@ -29,7 +29,7 @@ app.directive('photoGallery', ['userService', 'photoService', 'requestParserServ
 				return (attrs.templateUrl) ? _url + attrs.templateUrl : _url + 'photo-gallery.html';
 			},
 
-			link: function (scope, element, attrs, sc) {
+			link: function (scope, element, attrs, parentController) {
 				scope.urlPhoto = attrs['photoSingleUrl'] || 'photo';
 				scope.perPage = attrs['perPage'] || 5;
 				scope.albumName = attrs['albumId'] || 'default';

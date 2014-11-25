@@ -34,6 +34,8 @@ module.exports = {
 				'./bower_components/ng-file-upload/angular-file-upload.js',
 				'./bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
 				'./bower_components/ng-file-upload/angular-file-upload-shim.js',
+				'./bower_components/angular-payments/lib/angular-payments.js',
+				'./bower_components/accounting.js/accounting.min.js',
 
 				'./module.js',
 
@@ -96,7 +98,16 @@ module.exports = {
 
         './directives/user-badge/user-badge.js',
 
-        './directives/user-navbadge/user-navbadge.js'
+        './directives/user-navbadge/user-navbadge.js',
+
+// STRIPE DIRECTIVES
+
+        './directives/stripe-add-card/stripe-add-card.js',
+
+        './directives/stripe-anonymous-payment/stripe-anonymous-payment.js',
+
+        './directives/stripe-customer-payment/stripe-customer-payment.js',
+
 			]
 		}
 	}
