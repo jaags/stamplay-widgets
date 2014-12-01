@@ -27,7 +27,7 @@ This widget need the following data attributes:
 
 You can insert it by adding this code snippet in the page: 
  
-	<stamplay data-key="pk_x"></stamplay>
+	<stamplay stripe-add-card data-key="pk_x"></stamplay>
 
 #### What you'll get
 * If the user isn't logged you'll see nothing.
