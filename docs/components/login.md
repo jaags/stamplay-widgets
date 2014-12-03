@@ -26,6 +26,11 @@ To be thorough here is a list of all the supported login services:
 	<stamplay login-linkedin></stamplay>
 	<stamplay login-twitter></stamplay>
 
+If you need to redirect you users after a successfull login you can use the redirect data attribute:
+
+	<stamplay login-service data-redirect="/page" ></stamplay>
+
+
 #### What you'll get
 * If the user is logged you'll see nothing.
 * If the user isn't logged you'll see a standard Bootstrap button that will allow your user to log in with the specified service.  
