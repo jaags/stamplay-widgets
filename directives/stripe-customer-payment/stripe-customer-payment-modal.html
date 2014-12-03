@@ -10,105 +10,190 @@
 </div>
 
 <div class="modal-body">
-  <div class="row text-center">
-    <form class="col-md-12" style="padding:0" stripe-form="stripeCallback" name="form">
-      <div ng-if="errorModal">
-        <p class="bg-warning">{{errorModal}}</p>
+
+  <div class="row">
+    <div ng-if="wantAddCard">
+
+      <form  
+        stripe-form="stripeCallback" 
+        name="form"
+        class="col-md-12 text-center">
+
+        <div class="row">
+          <div class="col-md-12" ng-if="errorModal">
+            <p class="bg-warning">{{errorModal}}</p>
+          </div>
+        </div>
+       
+       <div class="row">
+         <div class="col-md-12" ng-if="errorLogin">
+           <p class="bg-warning">{{errorLogin}}</p>
+          </div>
        </div>
-      
-      <div ng-if="errorLogin">
-        <p class="bg-warning">{{errorLogin}}</p>
-      </div>
-      <img ng-if="image" ng-src="{{image}}" width="70"></img>
+
+       <div class="row">
+         <div class="col-md-12" ng-if="errorLogin">
+           <img ng-if="image" ng-src="{{image}}" width="70"></img>
+         </div>
+        </div>   
+
+        <div class="row">
+          <div class="form-group col-md-12" style="margin-top:35px;">
+            <div class="input-group">
+              <span class="input-group-addon" >
+                <i class="glyphicon glyphicon-credit-card"></i>
+              </span>   
+              <input 
+                ng-model="number" 
+                placeholder="Card Number" 
+                payments-format="card"
+                payments-validate="card" 
+                name="card" 
+                class="form-control"/>    
+            </div>
+                     
+            <div style="height:20px;">
+              <div ng-if="form.card.$invalid" class="invalid-field">
+                Invalid card number!
+              </div>
+            </div>
+          </div>
+        </div>  
+
+        <div class="row">
+
+          <div class="form-group col-md-7">     
+            <div class="input-group">
+              <span class="input-group-addon" >
+                <i class="glyphicon glyphicon-calendar"></i>
+              </span>            
+              <input 
+                ng-model="expiry" 
+                placeholder="Expiration" 
+                payments-format="expiry"
+                payments-validate="expiry" 
+                name="expiry"  
+                class="form-control" 
+                placeholder="expire MM/YY"/>
+            </div>
+            
+            <div style="height:20px;">
+              <div ng-if="form.expiry.$invalid" class="invalid-field">
+                 Invalid expiration date!
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+              </span>
+              <input 
+                ng-model="cvc" 
+                placeholder="CVC" 
+                payments-format="cvc"
+                payments-validate="cvc" 
+                name="cvc" 
+                class="form-control" 
+                placeholder="CVV"/>
+            </div>     
+            <div style="height:20px;">
+              <div ng-if="form.cvc.$invalid" class="invalid-field">
+                Invalid CVC!
+              </div>
+            </div>
+          </div>
+          
+        </div> 
+
+        <div class="clearfix"></div>
+
+        <div class="row text-center">
+          <div class="col-md-12">
+            <button 
+              ng-if="!process"
+              type="submit" 
+              class="btn btn-primary col-md-8 col-md-offset-2" 
+              ng-disabled="!allValue(number,expiry,cvc)"
+            >Pay {{amount | currencyStripe:currency }}
+            </button>
+          </div>
+          <div class="col-md-12">
+            <button 
+              ng-if="process" 
+              type="submit" 
+              class="btn btn-primary col-md-8 col-md-offset-2" 
+              disabled
+            > Processing Payment
+            </button>
+          </div>
+        </div>
+
+        <div class="row text-center bg-danger">
+          <div ng-if="errorPayment" class="col-md-12">
+            <span>Please contact the admin </span>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div ng-if="!wantAddCard">
+
       <div class="form-group col-md-12" style="margin-top:35px;">
-        <div class="input-group">
-          <span class="input-group-addon" >
-            <i class="glyphicon glyphicon-credit-card"></i>
-          </span>
-          <input 
-            ng-model="number" 
-            placeholder="Card Number" 
-            payments-format="card"
-            payments-validate="card" 
-            name="card" 
-            class="form-control"/>
-        </div>
-                 
-        <div style="height:20px;">
-          <div ng-if="form.card.$invalid" class="invalid-field">
-            Invalid card number!
-          </div>
-        </div>
-
-      </div>
-
-      <div class="form-group col-md-7">     
-        <div class="input-group">
-          <span class="input-group-addon" >
-            <i class="glyphicon glyphicon-calendar"></i>
-          </span>            
-          <input 
-            ng-model="expiry" 
-            placeholder="Expiration" 
-            payments-format="expiry"
-            payments-validate="expiry" 
-            name="expiry"  
-            class="form-control" 
-            placeholder="expire MM/YY"/>
-        </div>
-        
-        <div style="height:20px;">
-          <div ng-if="form.expiry.$invalid" class="invalid-field">
-             Invalid expiration date!
-          </div>
+        <div class="radio">
+          <label>
+            <input ng-model="selectedCardId" type="radio" name="gruppo" value="{{card}}">
+              **** **** **** {{last4}}
         </div>
       </div>
 
-      <div class="form-group col-md-5">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-lock"></i>
-          </span>
-          <input 
-            ng-model="cvc" 
-            placeholder="CVC" 
-            payments-format="cvc"
-            payments-validate="cvc" 
-            name="cvc" 
-            class="form-control" 
-            placeholder="CVV"/>
-        </div>     
-        <div style="height:20px;">
-          <div ng-if="form.cvc.$invalid" class="invalid-field">
-            Invalid CVC!
-          </div>
-        </div>
-      </div>
 
-      <div class="clearfix"></div>
+
       <div class="row text-center">
-        <button 
-          ng-if="!process"
-          type="submit" 
-          class="btn btn-primary col-md-8 col-md-offset-2" 
-          ng-disabled="!allValue(number,expiry,cvc)"
-        >Pay {{amount | currencyStripe:currency }}
-        </button>
-        <button 
-          ng-if="process" 
-          type="submit" 
-          class="btn btn-primary col-md-8 col-md-offset-2" 
-          disabled
-        > Processing Payment
-        </button>
-      </div>
-      <div class="row text-center">
-        <br />
-        <div ng-if="errorPayment" class="col-md-8 col-md-offset-2">
-          <p class="bg-danger">Please contact the admin </p>
+        <div class="col-md-12">
+          <button 
+            ng-if="!process"
+            ng-click="chargeUser(selectedCardId)"
+            type="button" 
+            class="btn btn-primary col-md-8 col-md-offset-2" 
+            ng-disabled="!allValue(number,expiry,cvc,selectedCardId)"
+          >Pay {{amount | currencyStripe:currency }}
+          </button>
+        </div>
+        <div class="col-md-12">
+          <button 
+            ng-if="process" 
+            type="submit" 
+            class="btn btn-primary col-md-8 col-md-offset-2" 
+            disabled
+          > Processing Payment
+          </button>
         </div>
       </div>
 
-    </form>
+      <div class="row text-center">
+        <div ng-if="errorPayment" class="col-md-12">
+          <span class="bg-danger">Please contact the admin </span>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
+
+<div class="modal-footer">
+
+  <div class="row" ng-if="card && wantAddCard">
+    <div class="col-md-12 text-center">
+      <a style="cursor:pointer;" ng-click="toggleAddCard()">Or use your card</small></a>
+    </div>
+  </div>
+
+  <div class="row text-center" ng-if="!process && !wantAddCard" >
+    <div class="col-md-12">
+      <a style="cursor:pointer;" ng-click="toggleAddCard()">Or add a new card</small></a>
+    </div>
+  </div>
+
 </div>
