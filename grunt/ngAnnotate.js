@@ -48,6 +48,7 @@ module.exports = {
 				'./services/cookieService.js',
 				'./services/formService.js',
 				'./services/loginService.js',
+				'./services/stripeService.js',
 				'./services/requestParserService.js',
 
  // DIRECTIVES

@@ -1,4 +1,4 @@
-app.directive('stripeCustomerPayment', ['$modal', 'userService',
+app.directive('stripeCustomerPayment', ['$modal', 'userService', 'stripeService', '$q',
 
 /*
 
@@ -11,7 +11,7 @@ app.directive('stripeCustomerPayment', ['$modal', 'userService',
 	[optional] data-image-url 					: if provided an image with this url will be used in the modal
 
 */
-	function ($modal, userService) {
+	function ($modal, userService, stripeService, $q) {
 
 		function loadScript(url, callback) {
 			var head = document.getElementsByTagName("head")[0];
@@ -61,6 +61,8 @@ app.directive('stripeCustomerPayment', ['$modal', 'userService',
 					scope.paymentInfo.error = 'Currency not allowed'
 				}
 				scope.paymentInfo.image = attrs['imageUrl'] || false;
+
+				/* Loading and initializing Stripe js */
 				if (window.Stripe) {
 					window.Stripe.setPublishableKey(attrs['key']);
 				} else {
@@ -81,8 +83,30 @@ app.directive('stripeCustomerPayment', ['$modal', 'userService',
 						backdrop: 'static',
 						size: 'sm',
 						resolve: {
+							stripeService: function () {
+								return stripeService
+							},
+							getCards: function () {
+								var deferred = $q.defer();
+								if ($scope.user && $scope.user._id) {
+									stripeService.getCards($scope.user._id)
+										.success(function (response) {
+											deferred.resolve(response);
+										})
+										.error(function (err) {
+											if (err.error.status == 403) {
+												deferred.resolve({});
+											} else {
+												deferred.reject(err);
+											}
+										});
+								} else {
+									deferred.resolve({});
+								}
+								return deferred.promise;
+							},
 							paymentInfo: function () {
-								return $scope.paymentInfo
+								return $scope.paymentInfo;
 							},
 							user: function () {
 								return userService.getUser()
@@ -97,7 +121,14 @@ app.directive('stripeCustomerPayment', ['$modal', 'userService',
 		};
 }]);
 
-app.controller('paymentModalCustomerController', function ($scope, $http, $rootScope, $modalInstance, paymentInfo, user, callbackEvents) {
+app.controller('paymentModalCustomerController', function ($scope, getCards, $http, $rootScope, $modalInstance, paymentInfo, user, stripeService, callbackEvents) {
+	$scope.card = getCards.card_id;
+	if ($scope.card) {
+		$scope.last4 = getCards.last4;
+		$scope.wantAddCard = false;
+	} else {
+		$scope.wantAddCard = true;
+	}
 
 	$scope.amount = parseFloat(paymentInfo.amount / 100)
 	$scope.currency = paymentInfo.currency
@@ -118,47 +149,104 @@ app.controller('paymentModalCustomerController', function ($scope, $http, $rootS
 		if (result.error) {
 			$scope.errorPayment = 'Error'
 		} else {
-			var data = {}
-			data.token = result.id
-			data.currency = paymentInfo.currency
-			data.amount = paymentInfo.amount
-			data.userId = $scope.user._id
-			$scope.cancel = function () {};
-			$scope.process = true;
-			$http({
-					method: 'POST',
-					url: '/api/stripe/v0/charges',
-					data: data
-				})
-				.success(function (res) {
-					$modalInstance.dismiss('cancel');
-					if ($scope.callbackEvents.successEvent)
-						$rootScope.$broadcast($scope.callbackEvents.successEvent);
-				}).error(function (err) {
-					$scope.errorPayment = 'Error';
-					if ($scope.callbackEvents.errorEvent)
-						$rootScope.$broadcast($scope.callbackEvents.errorEvent);
-				}).finally(function () {
-					$scope.process = false;
-					$scope.cancel = function () {
-						$scope.done()
-					};
-				})
+			var data = {};
+			data.token = result.id;
+			data.currency = paymentInfo.currency;
+			data.amount = paymentInfo.amount;
+			data.userId = $scope.user._id;
+
+			if ($scope.card && $scope.wantAddCard) {
+				/* Have already a card and I'm inserting a new card */
+				var changeCardData = {
+					userId: $scope.user._id,
+					token: result.id
+				};
+				delete data.token;
+				changeCard(changeCardData, data);
+			} else {
+				chargeApiCall(data);
+			}
+
 		}
 	};
 
-	$scope.allValue = function (number, expiry, cvc) {
+	$scope.chargeUser = function (selectedCardId) {
+		var data = {};
+		data.currency = paymentInfo.currency;
+		data.amount = paymentInfo.amount;
+		data.userId = $scope.user._id;
+		chargeApiCall(data);
+	}
+
+	function changeCard(changeCardData, data) {
+		$scope.cancel = function () {};
+		$scope.process = true;
+		stripeService.changeCard($scope.user._id, changeCardData)
+			.success(function () {
+				chargeApiCall(data);
+			})
+			.error(function () {
+				$scope.errorPayment = 'Error';
+				$scope.process = false;
+				$scope.cancel = function () {
+					$scope.done()
+				};
+				if ($scope.callbackEvents.errorEvent)
+					$rootScope.$broadcast($scope.callbackEvents.errorEvent);		
+			})
+	}
+
+	function chargeApiCall(data) {
+		$scope.cancel = function () {};
+		$scope.process = true;
+
+		stripeService.chargeCard(data)
+			.success(function (res) {
+				$modalInstance.dismiss('cancel');
+				if ($scope.callbackEvents.successEvent)
+					$rootScope.$broadcast($scope.callbackEvents.successEvent);
+			}).error(function (err) {
+				$scope.errorPayment = 'Error';
+				if ($scope.callbackEvents.errorEvent)
+					$rootScope.$broadcast($scope.callbackEvents.errorEvent);
+			}).finally(function () {
+				$scope.process = false;
+				$scope.cancel = function () {
+					$scope.done()
+				};
+			});
+	}
+
+	$scope.allValue = function (number, expiry, cvc, selectedCardId) {
+		var result;
+		if (!$scope.wantAddCard) {
+			result = hasCardSelected(selectedCardId);
+		} else {
+			result = isCardValid($scope, number, expiry, cvc);
+		}
+		return result;
+	};
+
+	function isCardValid($scope, number, expiry, cvc) {
 		if (!$scope.errorModal && !$scope.errorLogin && !$scope.process) {
 			if (!number || !expiry || !cvc)
-				return false
-			return true
+				return false;
+			return true;
 		} else
-			return false
+			return false;
 	}
+
+	function hasCardSelected(selectedCardId) {
+		return (!$scope.wantAddCard && selectedCardId);
+	};
 
 	$scope.done = function () {
 		$modalInstance.dismiss('cancel');
 	};
+
+	$scope.toggleAddCard = function () {
+		$scope.wantAddCard = !$scope.wantAddCard;
+	}
 })
 
 app.filter('currencyStripe', function () {
