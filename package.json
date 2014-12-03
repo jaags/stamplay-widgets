@@ -1,7 +1,7 @@
 {
-  "name": "Stamplaywidgets",
-  "version": "0.0.0",
-  "description": "",
+  "name": "Stamplay widgets",
+  "version": "0.0.1",
+  "description": "A set of angular widgets that take advantage of Stamplay's API",
   "main": "module.js",
   "scripts": {},
   "repository": {
