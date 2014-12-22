@@ -1,4 +1,6 @@
-# Whitelist URL missing
+# Common errors
+
+## Whitelist URL missing
 
 A javascript variable named _ASSETS_URL must be attached to the window object for allowing Angular js to whitelist the correct folder URL.
 
