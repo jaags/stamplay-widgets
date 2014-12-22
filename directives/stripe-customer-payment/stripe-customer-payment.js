@@ -204,11 +204,11 @@ app.controller('paymentModalCustomerController', function ($scope, getCards, $ht
 			.success(function (res) {
 				$modalInstance.dismiss('cancel');
 				if ($scope.callbackEvents.successEvent)
-					$rootScope.$broadcast($scope.callbackEvents.successEvent);
+					$rootScope.$broadcast($scope.callbackEvents.successEvent, res);	
 			}).error(function (err) {
 				$scope.errorPayment = 'Error';
 				if ($scope.callbackEvents.errorEvent)
-					$rootScope.$broadcast($scope.callbackEvents.errorEvent);
+					$rootScope.$broadcast($scope.callbackEvents.errorEvent, err);
 			}).finally(function () {
 				$scope.process = false;
 				$scope.cancel = function () {
