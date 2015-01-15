@@ -29,7 +29,7 @@
 				<div ng-repeat="field in form.fields">
 					
 					<div class="form-group" ng-if="field.type === 'text'">
-						<label for="{{field.id}}">{{field.name}} <span ng-if="field.required"*</span></label>
+						<label for="{{field.id}}">{{field.name}} <span ng-if="field.required">*</span></label>
 						<input 
 							id="{{field.id}}" 
 							type="{{field.type}}" 
@@ -41,7 +41,7 @@
 
 
 					<div class="form-group" ng-if="field.type === 'textarea'">
-						<label for="{{field.id}}">{{field.name}} <span ng-if="field.required"*</span></label>
+						<label for="{{field.id}}">{{field.name}} <span ng-if="field.required">*</span></label>
 						<textarea 
 							id="{{field.id}}"
 							class="form-control" 
@@ -54,7 +54,7 @@
 					</div>
 
 					<div class="form-group"  ng-if="field.type === 'dropdown'">
-						<label for="{{field.id}}">{{field.name}} <span ng-if="field.required"*</span></label>
+						<label for="{{field.id}}">{{field.name}} <span ng-if="field.required">*</span></label>
 						<select 
 							id="{{field.id}}"
 							ng-name="{{field.id}}"
@@ -69,7 +69,7 @@
 					</div>					
 
 					<div class="form-group" ng-if="field.type === 'radio'">
-						<p><strong>{{field.name}}</strong> <span ng-if="field.required"*</span></p>
+						<p><strong>{{field.name}}</strong> <span ng-if="field.required">*</span></p>
 						<label 
 							ng-repeat="option in field.options" 
 							for="{{field.id}}" 
@@ -84,7 +84,7 @@
 					</div>	
 
 					<div class="form-group checkbox-group" ng-if="field.type === 'checkbox'">
-						<p><strong>{{field.name}}</strong> <span ng-if="field.required"*</span></p>
+						<p><strong>{{field.name}}</strong> <span ng-if="field.required">*</span></p>
 						<label ng-repeat="option in field.options" for="{{field.id}}" class="radio-inline" >
 						    <!-- NEED TO DIG DEEPER  for checkbox validation -->
 								<input

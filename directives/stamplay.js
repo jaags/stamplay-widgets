@@ -7,7 +7,9 @@ app.directive('stamplay', ['userService', 'cookieService',
 
 				function ($scope, $http) {
 					this.version = 'v0';
-					this.appId = _APP_ID;
+					if (window._APP_ID) {
+						this.appId = _APP_ID;
+					}
 
 					this.listenOnUser = function (childScope) {
 						childScope.$on('user:updated', function (event, data) {
