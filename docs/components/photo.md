@@ -59,7 +59,7 @@ This widget need the following data attributes:
 
 You can insert it in the page by adding this code snippet in the page:  
 
-	<stamplay photo-slideshow data-album-id="YOUR-ALBUM-ID"></stamplay>
+	<stamplay photo-upload></stamplay>
 
 #### What you'll get
 * If the user isn't logged you'll see nothing.
